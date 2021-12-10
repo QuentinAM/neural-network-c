@@ -1,17 +1,16 @@
 #include "network.h"
 
-Network network_create(unsigned int sizeInput, unsigned int sizeHidden,
+Network *network_create(unsigned int sizeInput, unsigned int sizeHidden,
                    unsigned int nbHiddenLayers, unsigned int sizeOutput)
 {
-    Network network = { .nbLayers =
-                            nbHiddenLayers + 2, // Add input and output layer
-                        .sizeInput = sizeInput,
-                        .sizeHidden = sizeHidden,
-                        .sizeOutput = sizeOutput,
-                        .layers = NULL };
+    Network *network = malloc(sizeof(Network));
+    network->nbLayers = nbHiddenLayers + 2;
+    network->sizeInput = sizeInput;
+    network->sizeHidden = sizeHidden;
+    network->sizeOutput = sizeOutput;
 
     // Allocate memory for all layers
-    network.layers = malloc((network.nbLayers + 1) * sizeof(struct Layer));
+    network.layers = malloc((network.nbLayers + 1) * sizeof(Layer));
     if (network.layers == NULL)
     {
         errx(EXIT_FAILURE, "Error while allocating memory");
@@ -35,7 +34,7 @@ Network network_create(unsigned int sizeInput, unsigned int sizeHidden,
 }
 
 // Initialize neural network
-void initNetwork(Network *network)
+void network_init(Network *network)
 {
     srand(time(NULL));
     unsigned int nbLayers = network->nbLayers;
@@ -52,6 +51,21 @@ void initNetwork(Network *network)
     }
 }
 
+void network_train(Network *network, size_t n_epochs, double n_learning_rate, void *input, void *output)
+{
+    // TODO : implement
+}
+
+void network_test(Network *network, void *input, void *output)
+{
+    // TODO : implement
+}
+
+void network_save(Network *network, char *filename)
+{
+    saveWeights(network, filename);
+}
+
 void network_free(Network *network)
 {
     for (unsigned int i = 0; i < network->nbLayers; i++)
@@ -60,4 +74,5 @@ void network_free(Network *network)
         freeLayer(layer);
     }
     free(network->layers);
+    free(network);
 }

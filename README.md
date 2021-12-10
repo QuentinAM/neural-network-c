@@ -11,6 +11,8 @@ Working on neural network libs in C
 
 ```c
 #include "network.h"
+// Not implemented yet :
+// #include "settings.json"
 
 // Create a network with 1 hidden layer of 15 neurons to train on XOR
 // Here XOR is just an exemple of usage
@@ -27,12 +29,13 @@ int main(void)
     Network *network = network_create(n_inputs, n_outputs, n_hidden, n_hidden_size);
 
     size_t n_epochs = 100;
+    double n_learning_rate = 0.1;
 
     // Train the network on XOR
-    network_train(network, n_epochs, INPUTS, OUTPUTS);
+    network_train(network, n_epochs, n_learning_rate, INPUTS, OUTPUTS);
 
     // Test the network on XOR
-    network_test(network, INPUTS, OUTPUTS);
+    network_test(network, TEST_INPUTS, TEST_INPUTS);
 
     // Save the network
     network_save(network, "network.data");
