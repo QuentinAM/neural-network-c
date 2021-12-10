@@ -20,7 +20,7 @@
  * @param network
  * @param input
  */
-void frontPropagation(Network *network, int input[]);
+void network_front_propagation(Network *network, int input[]);
 
 /**
  * @brief
@@ -29,7 +29,7 @@ void frontPropagation(Network *network, int input[]);
  * @param expected
  * @return double
  */
-double backPropagation(Network *network, double expected[]);
+double network_back_propagation(Network *network, double expected[]);
 
 /**
  * @brief
@@ -37,14 +37,14 @@ double backPropagation(Network *network, double expected[]);
  * @param network
  * @param learningRate
  */
-void gradientDescent(Network *network, double learningRate);
+void network_gradient_descent(Network *network, double learningRate);
 
 /**
  * @brief
  *
  * @param network
  */
-void printWeights(Network *network);
+void network_print_weights(Network *network);
 
 /**
  * @brief
@@ -52,6 +52,6 @@ void printWeights(Network *network);
  * @param network
  * @return double
  */
-double averageErrorRate(Network *network);
+double network_average_error_rate(Network *network);
 
 #endif

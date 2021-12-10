@@ -1,6 +1,6 @@
-#include "neural_network.h"
+#include "network_steps.h"
 
-void frontPropagation(Network *network, int input[])
+void network_front_propagation(Network *network, int input[])
 {
     // First layer
     Layer *layer = &(network->layers[0]);
@@ -40,7 +40,7 @@ void frontPropagation(Network *network, int input[])
     softmax(layer);
 }
 
-double backPropagation(Network *network, double expected[])
+double network_back_propagation(Network *network, double expected[])
 {
     double errorRate = 0.0;
     double errorTemp = 0.0;
@@ -83,7 +83,7 @@ double backPropagation(Network *network, double expected[])
     return errorRate;
 }
 
-void gradientDescent(Network *network, double learningRate)
+void network_gradient_descent(Network *network, double learningRate)
 {
     // Gradient descent
     for (unsigned int i = network->nbLayers - 1; i >= 1; i--)
@@ -110,7 +110,7 @@ void gradientDescent(Network *network, double learningRate)
 
 // Apply softmax with cross entropy
 
-void printWeights(Network *network)
+void network_print_weights(Network *network)
 {
     printf("\n######## ALL WEIGHTS ########\n");
     for (unsigned int i = 0; i < network->nbLayers; i++)
@@ -129,7 +129,7 @@ void printWeights(Network *network)
     }
 }
 
-double averageErrorRate(Network *network)
+double network_average_error_rate(Network *network)
 {
     double average = 0.0;
     for (unsigned int i = 0; i < network->nbLayers; i++)

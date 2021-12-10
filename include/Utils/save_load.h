@@ -16,7 +16,7 @@
  * @param network
  * @param path
  */
-void saveWeights(Network *network, char *path);
+void network_save_weights(Network *network, char *path);
 
 /**
  * @brief
@@ -26,6 +26,6 @@ void saveWeights(Network *network, char *path);
  * @param verbose
  * @param gui
  */
-void launchWeights(Network *network, char *path, int verbose, int gui);
+void network_load_weights(Network *network, char *path, int verbose, int gui);
 
 #endif

@@ -63,7 +63,7 @@ void network_test(Network *network, void *input, void *output)
 
 void network_save(Network *network, char *filename)
 {
-    saveWeights(network, filename);
+    network_save_weights(network, filename);
 }
 
 void network_free(Network *network)

@@ -33,7 +33,7 @@ static void writeToFile(FILE *path, double number, char *extra)
     }
 }
 
-void saveWeights(Network *network, char *path)
+void network_save_weights(Network *network, char *path)
 {
     // Check if file already exist
 
@@ -82,7 +82,7 @@ void saveWeights(Network *network, char *path)
     fclose(file);
 }
 
-void launchWeights(Network *network, char *path, int verbose, int gui)
+void network_load_weights(Network *network, char *path, int verbose, int gui)
 {
     if (access(path, F_OK) != 0)
     {
