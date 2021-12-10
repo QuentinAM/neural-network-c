@@ -52,7 +52,7 @@ void initNetwork(Network *network)
     }
 }
 
-void freeNetwork(Network *network)
+void network_free(Network *network)
 {
     for (unsigned int i = 0; i < network->nbLayers; i++)
     {

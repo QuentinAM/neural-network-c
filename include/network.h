@@ -37,6 +37,6 @@ void initNetwork(Network *network);
  *
  * @param network
  */
-void freeNetwork(Network *network);
+void network_free(Network *network);
 
 #endif
