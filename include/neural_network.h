@@ -10,96 +10,9 @@
 #include "Utils/act_functions.h"
 #include "Utils/act_functions_prime.h"
 
-typedef struct Neuron
-{
-    unsigned int nbWeights;
-    double *weights;
-
-    double value;
-    double bias;
-    double delta;
-} Neuron;
-
-typedef struct Layer
-{
-    unsigned int nbNeurons;
-    Neuron *neurons;
-} Layer;
-
-typedef struct Network
-{
-    unsigned int nbLayers;
-    unsigned int sizeInput;
-    unsigned int sizeHidden;
-    unsigned int sizeOutput;
-    Layer *layers;
-} Network;
-
-// ------ Neuron ------
-
-/**
- * @brief
- *
- * @param nbWeights
- * @return Neuron
- */
-Neuron newNeuron(unsigned int nbWeights);
-
-/**
- * @brief
- *
- * @param neuron
- */
-void initNeuron(Neuron *neuron);
-
-/**
- * @brief
- *
- * @param neuron
- */
-void freeNeuron(Neuron *neuron);
-
-// ------ /Neuron ------
-
-// ------ Layer ------
-
-/**
- * @brief
- *
- * @param sizeLayer
- * @param sizePreviousLayer
- * @return Layer
- */
-Layer newLayer(unsigned int sizeLayer, unsigned int sizePreviousLayer);
-
-/**
- * @brief
- *
- * @param layer
- */
-void freeLayer(Layer *layer);
-// ------ /Layer ------
-
-// ------ Network ------
-
-/**
- * @brief
- *
- * @param sizeInput
- * @param sizeHidden
- * @param nbHiddenLayers
- * @param sizeOutput
- * @return Network
- */
-Network newNetwork(unsigned int sizeInput, unsigned int sizeHidden,
-                   unsigned int nbHiddenLayers, unsigned int sizeOutput);
-
-/**
- * @brief
- *
- * @param network
- */
-void initNetwork(Network *network);
+#include "neuron.h"
+#include "layer.h"
+#include "network.h"
 
 /**
  * @brief
@@ -108,13 +21,6 @@ void initNetwork(Network *network);
  * @param input
  */
 void frontPropagation(Network *network, int input[]);
-
-/**
- * @brief
- *
- * @param network
- */
-void freeNetwork(Network *network);
 
 /**
  * @brief
@@ -132,8 +38,6 @@ double backPropagation(Network *network, double expected[]);
  * @param learningRate
  */
 void gradientDescent(Network *network, double learningRate);
-
-// ------ /Network ------
 
 /**
  * @brief

@@ -1,7 +1,7 @@
 #ifndef SAVE_LOAD_H
 #define SAVE_LOAD_H
 
-#include "neural_network.h"
+#include "network.h"
 
 #include <ctype.h> // To use toupper()
 #include <err.h>
