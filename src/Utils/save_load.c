@@ -1,11 +1,4 @@
-#include "save_load.h"
-
-#include <ctype.h> // To use toupper()
-#include <err.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "Utils/save_load.h"
 
 static char isNumber(char text)
 {
@@ -96,9 +89,7 @@ void launchWeights(Network *network, char *path, int verbose, int gui)
         errx(EXIT_FAILURE, "Weights file doesn't exist");
     }
 
-    char text[200];
-    snprintf(text, sizeof(text), "--> 💾 Initing weights from %s\n", path);
-    printVerbose(verbose, gui, text, "terminal_text");
+    printf("--> 💾 Initing weights from %s\n", path);
 
     // Open file
     FILE *file;

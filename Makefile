@@ -10,20 +10,23 @@ SOURCE_DIR := src
 
 SRC = $(shell find $(SOURCE_DIR) -name "*.c" ! -name "main.c")
 OBJ = $(SRC:%.c=$(BUILD)/%.o)
-DEP = $(SRC:%.c=$(BUILD)/%.d)
 
 all: init main clear
 
-clear:
-	find . -type d -empty -delete
-
+# Create build directory
 init: 
 	$(shell mkdir -p $(BUILD))
 	$(shell mkdir -p $(SRC:%.c=$(BUILD)/%))
 
+# Compile all source files
 main: $(OBJ)
 	gcc -o $@ $(CFLAGS) $^ $(LDLFLAGS) $(LDLIBS)
 
+# Clear build directory
+clear:
+	find . -type d -empty -delete
+
+# Redirect output to build directory
 $(BUILD)/%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LDLFLAGS) $(CPPFLAGS) $(LDLIBS)
 

@@ -1,12 +1,14 @@
 #ifndef NEURAL_NETWORK_H
 #define NEURAL_NETWORK_H
 
-#include <SDL/SDL.h>
 #include <err.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> // To call srand(time(NULL));
+
+#include "Utils/act_functions.h"
+#include "Utils/act_functions_prime.h"
 
 typedef struct Neuron
 {
@@ -132,37 +134,6 @@ double backPropagation(Network *network, double expected[]);
 void gradientDescent(Network *network, double learningRate);
 
 // ------ /Network ------
-
-/**
- * @brief
- *
- * @param x
- * @return double
- */
-double sigmoid(double x);
-
-/**
- * @brief
- *
- * @param x
- * @return double
- */
-double sigmoidPrime(double x);
-
-/**
- * @brief
- *
- * @param x
- * @return double
- */
-double softmax(double x);
-
-/**
- * @brief
- *
- * @param layer
- */
-void softmaxLayer(Layer *layer);
 
 /**
  * @brief

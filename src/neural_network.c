@@ -167,27 +167,8 @@ void frontPropagation(Network *network, int input[])
         }
     }
 
-    // Output layer
-    // Layer prevLayer = network->layers[network->nbLayers - 2];
     layer = &(network->layers[network->nbLayers - 1]);
-    softmaxLayer(layer);
-    // nbNeurons = layer->nbNeurons;
-
-    // // For each neuron of the actual layer
-    // for (unsigned int j = 0; j < nbNeurons; j++)
-    // {
-    //     Neuron *neuron = &(layer->neurons[j]);
-    //     double sum = 0.0;
-
-    //     // Calcul new neuron value based on his weights and the value of
-    //     // previous layer
-    //     for (unsigned int k = 0; k <= prevLayer.nbNeurons; k++)
-    //     {
-    //         sum += neuron->weights[k] * prevLayer.neurons[k].value;
-    //     }
-    //     sum += neuron->bias;
-    //     layer->neurons[j].value = softmax(sum);
-    // }
+    softmax(layer);
 }
 
 void freeNetwork(Network *network)
@@ -267,51 +248,6 @@ void gradientDescent(Network *network, double learningRate)
                     * learningRate;
             }
         }
-    }
-}
-
-double sigmoid(double x)
-{
-    // return 1 / (1 + exp(-x));
-    if (x > 0)
-    {
-        return x;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-double sigmoidPrime(double x)
-{
-    // return x * (1 - x);
-    if (x > 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-double softmax(double x)
-{
-    return exp(x) / (1 + exp(x));
-}
-
-void softmaxLayer(Layer *layer)
-{
-    double sum = 0.0;
-    for (unsigned int i = 0; i < layer->nbNeurons; i++)
-    {
-        layer->neurons[i].value = exp(layer->neurons[i].value);
-        sum += layer->neurons[i].value;
-    }
-    for (unsigned int i = 0; i < layer->nbNeurons; i++)
-    {
-        layer->neurons[i].value = layer->neurons[i].value / sum;
     }
 }
 
