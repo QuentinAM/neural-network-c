@@ -1,6 +1,6 @@
 #include "neuron.h"
 
-Neuron newNeuron(unsigned int nbWeights)
+Neuron newNeuron(size_t nbWeights)
 {
     Neuron neuron = {
         .nbWeights = nbWeights,
@@ -25,8 +25,8 @@ Neuron newNeuron(unsigned int nbWeights)
 // Should only be called in initNetwork because of : srand ( time ( NULL));
 void initNeuron(Neuron *neuron)
 {
-    unsigned int nbWeights = neuron->nbWeights;
-    for (unsigned int i = 0; i < nbWeights; i++)
+    size_t nbWeights = neuron->nbWeights;
+    for (size_t i = 0; i < nbWeights; i++)
     {
         neuron->weights[i] = (double)rand() / RAND_MAX * 2.0 - 1.0;
     }

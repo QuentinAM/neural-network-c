@@ -6,68 +6,74 @@
 
 typedef struct Network
 {
-    unsigned int nbLayers;
-    unsigned int sizeInput;
-    unsigned int sizeHidden;
-    unsigned int sizeOutput;
+    size_t nbLayers;
+    size_t sizeInput;
+    size_t sizeHidden;
+    size_t sizeOutput;
     Layer *layers;
 } Network;
 
 /**
- * @brief
+ * @brief Create a new network
  *
- * @param sizeInput
- * @param sizeHidden
- * @param nbHiddenLayers
- * @param sizeOutput
+ * @param sizeInput size of the input layer
+ * @param sizeHidden size of the hidden layer
+ * @param nbHiddenLayers number of hidden layers
+ * @param sizeOutput size of the output layer
  * @return Network
  */
-Network *network_create(unsigned int sizeInput, unsigned int sizeHidden,
-                   unsigned int nbHiddenLayers, unsigned int sizeOutput);
+Network *network_create(size_t sizeInput, size_t sizeHidden, size_t nbHiddenLayers, size_t sizeOutput);
 
 /**
- * @brief
+ * @brief Initialize a network
  *
- * @param network
+ * @param network the network to be initialized
  */
 void network_init(Network *network);
 
 /**
- * @brief 
+ * @brief Train a network
  * 
- * @param network 
- * @param n_epochs 
- * @param n_learning_rate 
- * @param input 
- * @param output 
+ * @param network the network to be trained
+ * @param n_epochs  number of epochs
+ * @param n_learning_rate learning rate
+ * @param input input data
+ * @param output output data
  */
 // TODO : Change the void * properly
 void network_train(Network *network, size_t n_epochs, double n_learning_rate, void *input, void *output);
 
 /**
- * @brief 
+ * @brief Predict the output of a network
  * 
- * @param network 
- * @param input 
- * @param output 
+ * @param network the network to be used
+ * @param input input data
+ * @param output output data
  */
 // TODO : Change the void * properly
 void network_test(Network *network, void *input, void *output);
 
 /**
- * @brief
+ * @brief Save a network
  *
- * @param network
- * @param input
- * @param output
+ * @param network the network to be saved
+ * @param input input data
+ * @param output output data
  */
 void network_save(Network *network, char *filename);
 
+/**
+ * @brief Load a network
+ * 
+ * @param filename the file to be loaded
+ * @return Network* the loaded network
+ */
+Network *network_load(char *filename);
 
 /**
- * @brief
+ * @brief Free a network
  *
- * @param network
+ * @param network the network to be free
  */
 void network_free(Network *network);
 

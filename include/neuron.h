@@ -3,7 +3,7 @@
 
 typedef struct Neuron
 {
-    unsigned int nbWeights;
+    size_t nbWeights;
     double *weights;
 
     double value;
@@ -12,22 +12,22 @@ typedef struct Neuron
 } Neuron;
 
 /**
- * @brief
+ * @brief createNeuron
  *
- * @param nbWeights
+ * @param nbWeights number of weights
  * @return Neuron
  */
-Neuron newNeuron(unsigned int nbWeights);
+Neuron newNeuron(size_t nbWeights);
 
 /**
- * @brief
+ * @brief Initialize a neuron with random weights
  *
  * @param neuron
  */
 void initNeuron(Neuron *neuron);
 
 /**
- * @brief
+ * @brief freeNeuron
  *
  * @param neuron
  */

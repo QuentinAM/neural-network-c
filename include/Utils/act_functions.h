@@ -4,16 +4,28 @@
 #include "layer.h"
 
 /**
- * @brief 
+ * @brief The ActFunction class
  * 
- * @param Layer 
+ */
+enum ActFunction {
+    LINEAR,
+    SIGMOID,
+    TANH,
+    RELU,
+    SOFTMAX
+};
+
+/**
+ * @brief Performs the sigmoid function on the given layer. 
+ * 
+ * @param Layer The layer to perform the activation function on. 
  */
 void sigmoid(Layer *Layer);
 
 /**
- * @brief 
+ * @brief Performs the softmax function on the given layer. 
  * 
- * @param Layer 
+ * @param Layer The layer to perform the activation function on.
  */
 void softmax(Layer *Layer);
 

@@ -15,42 +15,42 @@
 #include "network.h"
 
 /**
- * @brief
+ * @brief Perform front propagation on the network
  *
- * @param network
- * @param input
+ * @param network The network to perform front propagation on
+ * @param input The input to the network
  */
 void network_front_propagation(Network *network, int input[]);
 
 /**
- * @brief
+ * @brief Perform back propagation on the network
  *
- * @param network
- * @param expected
- * @return double
+ * @param network The network to perform back propagation on
+ * @param expected The expected output of the network
+ * @return double The error of the network
  */
 double network_back_propagation(Network *network, double expected[]);
 
 /**
- * @brief
+ * @brief Perform gradient descent on the network
  *
- * @param network
- * @param learningRate
+ * @param network The network to perform gradient descent on
+ * @param learningRate The learning rate to use
  */
 void network_gradient_descent(Network *network, double learningRate);
 
 /**
- * @brief
+ * @brief Print the network
  *
- * @param network
+ * @param network The network to print
  */
 void network_print_weights(Network *network);
 
 /**
- * @brief
+ * @brief Calculate the error rate of the network
  *
- * @param network
- * @return double
+ * @param network The network to calculate the error rate of
+ * @return double The error rate of the network
  */
 double network_average_error_rate(Network *network);
 

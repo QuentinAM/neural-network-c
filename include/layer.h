@@ -5,23 +5,23 @@
 
 typedef struct Layer
 {
-    unsigned int nbNeurons;
+    size_t nbNeurons;
     Neuron *neurons;
 } Layer;
 
 /**
- * @brief
+ * @brief Create a new layer
  *
- * @param sizeLayer
- * @param sizePreviousLayer
- * @return Layer
+ * @param sizeLayer The size of the layer
+ * @param sizePreviousLayer The size of the previous layer
+ * @return Layer The new layer
  */
-Layer newLayer(unsigned int sizeLayer, unsigned int sizePreviousLayer);
+Layer newLayer(size_t sizeLayer, size_t sizePreviousLayer);
 
 /**
- * @brief
+ * @brief Free the memory of a layer
  *
- * @param layer
+ * @param layer The layer to free
  */
 void freeLayer(Layer *layer);
 

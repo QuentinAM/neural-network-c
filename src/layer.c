@@ -1,6 +1,6 @@
 #include "layer.h"
 
-Layer newLayer(unsigned int size, unsigned int sizePreviousLayer)
+Layer newLayer(size_t size, size_t sizePreviousLayer)
 {
     Layer layer = { .nbNeurons = size, .neurons = NULL };
 
@@ -12,7 +12,7 @@ Layer newLayer(unsigned int size, unsigned int sizePreviousLayer)
     }
 
     // Create all the neurons depending on the size of the previous layer
-    for (unsigned int i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++)
     {
         layer.neurons[i] = newNeuron(sizePreviousLayer);
     }
@@ -22,7 +22,7 @@ Layer newLayer(unsigned int size, unsigned int sizePreviousLayer)
 
 void freeLayer(Layer *layer)
 {
-    for (unsigned int i = 0; i < layer->nbNeurons; i++)
+    for (size_t i = 0; i < layer->nbNeurons; i++)
     {
         Neuron *neuron = &(layer->neurons[i]);
         freeNeuron(neuron);

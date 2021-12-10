@@ -1,7 +1,6 @@
 #include "network.h"
 
-Network *network_create(unsigned int sizeInput, unsigned int sizeHidden,
-                   unsigned int nbHiddenLayers, unsigned int sizeOutput)
+Network *network_create(size_t sizeInput, size_t sizeHidden, size_t nbHiddenLayers, size_t sizeOutput)
 {
     Network *network = malloc(sizeof(Network));
     network->nbLayers = nbHiddenLayers + 2;
@@ -20,7 +19,7 @@ Network *network_create(unsigned int sizeInput, unsigned int sizeHidden,
     network.layers[0] = newLayer(sizeInput, 0);
 
     // Create all hidden layer with the nbNeurons of the previous one
-    for (unsigned int i = 1; i < network.nbLayers - 1; i++)
+    for (size_t i = 1; i < network.nbLayers - 1; i++)
     {
         network.layers[i] =
             newLayer(sizeHidden, network.layers[i - 1].nbNeurons);
@@ -37,14 +36,14 @@ Network *network_create(unsigned int sizeInput, unsigned int sizeHidden,
 void network_init(Network *network)
 {
     srand(time(NULL));
-    unsigned int nbLayers = network->nbLayers;
-    unsigned int nbNeurons;
+    size_t nbLayers = network->nbLayers;
+    size_t nbNeurons;
 
-    for (unsigned int i = 0; i < nbLayers; i++)
+    for (size_t i = 0; i < nbLayers; i++)
     {
         Layer *layer = &(network->layers[i]);
         nbNeurons = layer->nbNeurons;
-        for (unsigned int j = 0; j < nbNeurons; j++)
+        for (size_t j = 0; j < nbNeurons; j++)
         {
             initNeuron(&(layer->neurons[j]));
         }
@@ -66,9 +65,16 @@ void network_save(Network *network, char *filename)
     network_save_weights(network, filename);
 }
 
+Network *network_load(char *filename)
+{
+    Network *network = malloc(sizeof(Network));
+    network_load_weights(network, filename);
+    return network;
+}
+
 void network_free(Network *network)
 {
-    for (unsigned int i = 0; i < network->nbLayers; i++)
+    for (size_t i = 0; i < network->nbLayers; i++)
     {
         Layer *layer = &(network->layers[i]);
         freeLayer(layer);
