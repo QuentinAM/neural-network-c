@@ -21,7 +21,7 @@ typedef struct Network
  * @param sizeOutput
  * @return Network
  */
-Network newNetwork(unsigned int sizeInput, unsigned int sizeHidden,
+Network network_create(unsigned int sizeInput, unsigned int sizeHidden,
                    unsigned int nbHiddenLayers, unsigned int sizeOutput);
 
 /**

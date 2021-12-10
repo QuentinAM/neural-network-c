@@ -2,6 +2,11 @@
 
 Working on neural network libs in C
 
+## Advantages
+
+- You'll be able to use the same code for different types of neural networks
+- You'll be able to modify the code to fit your needs
+
 ## Usage (expectation)
 
 ```c
