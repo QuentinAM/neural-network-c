@@ -1,33 +1,37 @@
 #include "network.h"
 
-Network *network_create(size_t sizeInput, size_t sizeHidden, size_t nbHiddenLayers, size_t sizeOutput)
+Network *network_create(Network_args *args)
 {
     Network *network = malloc(sizeof(Network));
-    network->nbLayers = nbHiddenLayers + 2;
-    network->sizeInput = sizeInput;
-    network->sizeHidden = sizeHidden;
-    network->sizeOutput = sizeOutput;
+    network->nbLayers = args->n_hidden_layers + 2;
+    network->sizeInput = args->n_inputs;
+    network->sizeHidden = args->n_hidden_neurons;
+    network->sizeOutput = args->n_outputs;
 
     // Allocate memory for all layers
-    network.layers = malloc((network.nbLayers + 1) * sizeof(Layer));
-    if (network.layers == NULL)
+    network->layers = malloc((network->nbLayers + 1) * sizeof(Layer));
+    if (network->layers == NULL)
     {
         errx(EXIT_FAILURE, "Error while allocating memory");
     }
 
     // Create the input layer
-    network.layers[0] = newLayer(sizeInput, 0);
+    network->layers[0] = newLayer(sizeInput, 0);
 
     // Create all hidden layer with the nbNeurons of the previous one
-    for (size_t i = 1; i < network.nbLayers - 1; i++)
+    for (size_t i = 1; i < network->nbLayers - 1; i++)
     {
         network.layers[i] =
-            newLayer(sizeHidden, network.layers[i - 1].nbNeurons);
+            newLayer(sizeHidden, network->layers[i - 1].nbNeurons);
     }
 
     // Create the ouput layer
-    network.layers[network.nbLayers - 1] =
-        newLayer(sizeOutput, network.layers[network.nbLayers - 2].nbNeurons);
+    network->layers[network->nbLayers - 1] =
+        newLayer(sizeOutput, network->layers[network->nbLayers - 2].nbNeurons);
+
+    // Get activation function
+    network->act_f = get_activation_f(args->act_functions);
+    network->act_f_prime = get_activation_f_prime(args->act_f_prime);
 
     return network;
 }
@@ -50,7 +54,8 @@ void network_init(Network *network)
     }
 }
 
-void network_train(Network *network, size_t n_epochs, double n_learning_rate, void *input, void *output)
+void network_train(Network *network, size_t n_epochs, double n_learning_rate,
+                   void *input, void *output)
 {
     // TODO : implement
 }

@@ -7,11 +7,6 @@
 #include <stdlib.h>
 #include <time.h> // To call srand(time(NULL));
 
-#include "Utils/act_functions.h"
-#include "Utils/act_functions_prime.h"
-
-#include "neuron.h"
-#include "layer.h"
 #include "network.h"
 
 /**
