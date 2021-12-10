@@ -1,2 +1,4 @@
-# neural-network-c
-A total open source neural network in C
+# Neural network
+## C
+
+Working on neural network libs in C
