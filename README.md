@@ -27,8 +27,8 @@ int main(void)
         .n_outputs = 1,
         .n_hidden_layers = 1,
         .n_neurons_per_hidden_layer = 15,
-        .n_act_f = sigmoid,
-        .n_act_f_prime = sigmoid_prime,
+        .n_act_f = SIGMOID,
+        .n_act_f_prime = SIGMOID_PRIME,
     };
 
     // Create the network
