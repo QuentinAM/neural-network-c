@@ -15,7 +15,7 @@
  * @param network The network to perform front propagation on
  * @param input The input to the network
  */
-void network_front_propagation(Network *network, int input[]);
+void network_front_propagation(Network *network, double *input);
 
 /**
  * @brief Perform back propagation on the network
@@ -24,7 +24,7 @@ void network_front_propagation(Network *network, int input[]);
  * @param expected The expected output of the network
  * @return double The error of the network
  */
-double network_back_propagation(Network *network, double expected[]);
+double network_back_propagation(Network *network, double *expected);
 
 /**
  * @brief Perform gradient descent on the network
@@ -42,13 +42,21 @@ void network_gradient_descent(Network *network, double learningRate);
 void network_print_weights(Network *network);
 
 /**
+ * @brief Get the nb data object
+ * 
+ * @param file_name 
+ * @return size_t 
+ */
+size_t get_nb_data(char *file_name);
+
+/**
  * @brief 
  * 
  * @param file 
  * @param input 
  * @param output 
  */
-void network_create_data(FILE *file, double *input, double *output);
+void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, double **input, double **expected);
 
 /**
  * @brief Calculate the error rate of the network

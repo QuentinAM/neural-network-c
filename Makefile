@@ -37,5 +37,5 @@ format:
 # Clean all trash files
 clean:
 	rm -rf $(BUILD)
-	rm main
+	rm -f main
 	clear

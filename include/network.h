@@ -1,9 +1,12 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include <stdbool.h>
+
 #include "Utils/act_functions.h"
 #include "Utils/act_functions_prime.h"
 #include "Utils/save_load.h"
+#include "Utils/matrix.h"
 #include "network_utils.h"
 #include "layer.h"
 
@@ -32,7 +35,7 @@ typedef struct Network
     size_t sizeHidden;
     size_t sizeOutput;
     n_act_f act_f;
-    n_act_f act_f_prime;
+    n_act_f_prime act_f_prime;
     Layer *layers;
 } Network;
 
@@ -63,9 +66,7 @@ Network *network_create(Network_args *args)
  * @param input input data
  * @param output output data
  */
-// TODO : Change the void * properly
-void network_train(Network *network, size_t n_epochs, double n_learning_rate,
-                   char *data);
+void network_train(Network *network, size_t n_epochs, double n_learning_rate, char *data);
 
 /**
  * @brief Predict the output of a network
@@ -74,8 +75,7 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
  * @param input input data
  * @param output output data
  */
-// TODO : Change the void * properly
-void network_test(Network *network, void *input, void *output);
+void network_test(Network *network, char *data);
 
 /**
  * @brief Save a network

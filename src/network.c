@@ -61,28 +61,69 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
 {
     printf("Training network...\n");
 
-    // Open data file
-    FILE *file = fopen(data, "r");
-    if (file == NULL)
+    size_t nb_data = get_nb_data(data);
+
+    double **input = matrix_alloc(nb_data, network->sizeInput);
+    double **output = matrix_alloc(nb_data, network->sizeOutput);
+
+    // Load data
+    network_create_data(data, network->sizeInput, network->sizeOutput, input, output);
+
+    // Train the network
+    for (size_t epoch = 0; epoch < n_epochs; epoch++)
     {
-        errx(EXIT_FAILURE, "Error while opening data file");
+        // For each data
+        for (size_t data = 0; data < nb_data; data++)
+        {
+            // Forward propagation
+            network_front_propagation(network, input[data]);
+            
+            // Back propagation
+            network_back_propagation(network, output[data]);
+            
+            // Update weights
+            network_gradient_descent(network, n_learning_rate);
+        }
     }
 
-    // Read data
-    size_t nbLines = 0;
-    size_t nbInputs = network->sizeInput;
-    size_t nbOutputs = network->sizeOutput;
-
-    // Read line one by one
-    char ch;
-    
+    // Free memory
+    matrix_free(input, network->sizeInput);
+    matrix_free(output, network->sizeOutput);
 }
 
-void network_test(Network *network, void *input, void *output)
+void network_test(Network *network, char *data)
 {
     printf("Testing network...\n");
 
-    // TODO : implement
+    size_t nb_data = get_nb_data(data);
+
+    // Allocate memory for test data
+    double **input = matrix_alloc(nb_data, network->sizeInput);
+
+    for (size_t data = 0; data < nb_data; data++)
+    {
+        printf("Data %zu\n", data);
+        printf("Input : ");
+        for (size_t i = 0; i < network->sizeInput; i++)
+        {
+            printf("%f ", input[data][i]);
+        }
+        printf("\n");
+
+        // Forward propagation
+        network_front_propagation(network, input[data]);
+
+        // Print output
+        printf("Output : ");
+        for (size_t i = 0; i < network->sizeOutput; i++)
+        {
+            printf("%f ", network->layers[network->nbLayers - 1].neurons[i].value);
+        }
+        printf("\n");
+    }
+
+    // Free memory
+    matrix_free(input, network->sizeInput);
 }
 
 void network_save(Network *network, char *filename)

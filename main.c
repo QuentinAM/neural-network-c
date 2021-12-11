@@ -14,7 +14,7 @@ int main(void)
         .n_hidden_layers = 1,
         .n_neurons_per_hidden_layer = 15,
         .n_act_f = SIGMOID,
-        .n_act_f_prime = SIGMOID_PRIME,
+        .n_act_f_prime = SIGMOID_PRIME
     };
 
     // Create the network
@@ -27,7 +27,7 @@ int main(void)
     network_train(network, n_epochs, n_learning_rate, "xor_data.txt");
 
     // Test the network on XOR
-    network_test(network, TEST_INPUTS, TEST_INPUTS);
+    network_test(network, "xor_test.txt");
 
     // Save the network
     network_save(network, "network.data");

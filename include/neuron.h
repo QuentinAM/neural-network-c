@@ -1,6 +1,8 @@
 #ifndef NEURON_H
 #define NEURON_H
 
+#include <stdlib.h>
+
 typedef struct Neuron
 {
     size_t nbWeights;

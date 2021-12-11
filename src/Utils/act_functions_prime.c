@@ -21,23 +21,60 @@ n_act_f get_act_function_prime(ActFunctionPrime act_function_prime)
     }
 }
 
-void sigmoid_prime(Layer *layer)
+double sigmoid_prime(Network *network, double *expected)
 {
-    // TODO: Implement sigmoid prime for a layer
-    // sigmoid(x) * (1 - sigmoid(x));
+    double errorRate = 0.0;
+    double errorTemp = 0.0;
+
+    unsigned int nbLayers = network->nbLayers;
+
+    // Output layer
+    Layer *outputLayer = &(network->layers[nbLayers - 1]);
+
+    // NbNeurons of lastlayer and expected are equals
+    for (unsigned int i = 0; i < outputLayer->nbNeurons; i++)
+    {
+        Neuron *neuron = &(outputLayer->neurons[i]);
+        errorTemp = expected[i] - neuron->value;
+        neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
+        errorRate += (errorTemp * errorTemp);
+    }
+
+    // For all layer except the input
+    for (unsigned int i = nbLayers - 1; i >= 2; i--)
+    {
+        Layer layer = network->layers[i];
+        Layer *previousLayer =
+            &(network->layers[i - 1]); // Modify weights of this layer
+        // For each neurons
+        for (unsigned int j = 0; j < previousLayer->nbNeurons; j++)
+        {
+            errorTemp = 0.0;
+            Neuron *neuron = &(previousLayer->neurons[j]);
+            // Calculate error rate based on all neuron in the next layer and
+            // all weights of the actual neuron
+            for (unsigned int k = 0; k < layer.nbNeurons; k++)
+            {
+                errorTemp +=
+                    layer.neurons[k].delta * layer.neurons[k].weights[j];
+            }
+            neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
+        }
+    }
+    return errorRate;
 }
 
-void tanh_prime(Layer *layer)
+double tanh_prime(Network *network, double *expected)
 {}
 
-void relu_prime(Layer *layer)
+double relu_prime(Network *network, double *expected)
 {}
 
-void leaky_relu_prime(Layer *layer)
+double leaky_relu_prime(Network *network, double *expected)
 {}
 
-void softmax_prime(Layer *layer)
+double softmax_prime(Network *network, double *expected)
 {}
 
-void linear_prime(Layer *layer)
+double linear_prime(Network *network, double *expected)
 {}

@@ -2,6 +2,7 @@
 #define LAYER_H
 
 #include "neuron.h"
+#include <err.h>
 
 typedef struct Layer
 {

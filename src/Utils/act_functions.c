@@ -19,13 +19,37 @@ n_act_f get_activation_f(ActFunction f)
     }
 }
 
-void sigmoid(Layer *Layer)
+void sigmoid(Network *network)
 {
-    // TODO : Implement sigmoid activation function for a layer
-    // 1 / (1 + exp(-x));
+    // Hiddens layer
+    size_t nbLayers = network->nbLayers;
+    size_t nbNeurons;
+    // For each layer
+    for (size_t i = 1; i < nbLayers; i++)
+    {
+        Layer prevLayer = network->layers[i - 1];
+        layer = &(network->layers[i]);
+        nbNeurons = layer->nbNeurons;
+
+        // For each neuron of the actual layer
+        for (size_t j = 0; j < nbNeurons; j++)
+        {
+            Neuron *neuron = &(layer->neurons[j]);
+            double sum = 0.0;
+
+            // Calcul new neuron value based on his weights and the value of
+            // previous layer
+            for (size_t k = 0; k <= prevLayer.nbNeurons; k++)
+            {
+                sum += neuron->weights[k] * prevLayer.neurons[k].value;
+            }
+            // sum += neuron->bias;
+            layer->neurons[j].value = 1 / (1 + exp(-sum));
+        }
+    }
 }
 
-void softmax(Layer *Layer)
+void softmax_layer(Layer *layer)
 {
     double sum = 0.0;
 
@@ -43,11 +67,19 @@ void softmax(Layer *Layer)
     }
 }
 
-void linear(Layer *Layer)
+void softmax(Network *network)
+{
+    for (size_t i = 1; i < network->nbLayers; i++)
+    {
+        softmax_layer(&network->layers[i]);
+    }
+}
+
+void linear(Network *network)
 {}
 
-void tanh(Layer *Layer)
+void tanh(Network *network)
 {}
 
-void relu(Layer *Layer)
+void relu(Network *network)
 {}

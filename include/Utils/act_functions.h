@@ -1,9 +1,9 @@
 #ifndef ACT_FUNCTION_H
 #define ACT_FUNCTION_H
 
-#include "layer.h"
+#include "network.h"
 
-typedef void (*n_act_f)(Layer *layer);
+typedef void (*n_act_f)(Network *network) n_act_f;
 
 /**
  * @brief The ActFunction class
@@ -22,41 +22,48 @@ enum ActFunction
  * @brief Get the activation function
  *
  */
-n_act_f get_activation_f(ActFunction f);
+n_act_f get_activation_f(enum ActFunction f);
 
 /**
  * @brief Performs the sigmoid function on the given layer.
  *
  * @param Layer The layer to perform the activation function on.
  */
-void sigmoid(Layer *Layer);
+void sigmoid(Network *network);
 
 /**
  * @brief Performs the softmax function on the given layer.
  *
  * @param Layer The layer to perform the activation function on.
  */
-void softmax(Layer *Layer);
+void softmax_layer(Layer *layer);
+
+/**
+ * @brief 
+ * 
+ * @param network 
+ */
+void softmax(Network *network);
 
 /**
  * @brief Performs the linear function on the given layer.
  *
  * @param Layer The layer to perform the activation function on.
  */
-void linear(Layer *Layer);
+void linear(Network *network);
 
 /**
  * @brief Performs the tanh function on the given layer.
  *
  * @param Layer The layer to perform the activation function on.
  */
-void tanh(Layer *Layer);
+void tanh(Network *network);
 
 /**
  * @brief Performs the relu function on the given layer.
  *
  * @param Layer The layer to perform the activation function on.
  */
-void relu(Layer *Layer);
+void relu(Network *network);
 
 #endif
