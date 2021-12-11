@@ -23,9 +23,7 @@ void network_save_weights(Network *network, char *path);
  *
  * @param network
  * @param path
- * @param verbose
- * @param gui
  */
-void network_load_weights(Network *network, char *path, int verbose, int gui);
+void network_load_weights(Network *network, char *path);
 
 #endif

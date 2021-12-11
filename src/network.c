@@ -2,6 +2,8 @@
 
 Network *network_create(Network_args *args)
 {
+    printf("Creating network...\n");
+
     Network *network = malloc(sizeof(Network));
     network->nbLayers = args->n_hidden_layers + 2;
     network->sizeInput = args->n_inputs;
@@ -55,18 +57,38 @@ void network_init(Network *network)
 }
 
 void network_train(Network *network, size_t n_epochs, double n_learning_rate,
-                   void *input, void *output)
+                   char *data)
 {
-    // TODO : implement
+    printf("Training network...\n");
+
+    // Open data file
+    FILE *file = fopen(data, "r");
+    if (file == NULL)
+    {
+        errx(EXIT_FAILURE, "Error while opening data file");
+    }
+
+    // Read data
+    size_t nbLines = 0;
+    size_t nbInputs = network->sizeInput;
+    size_t nbOutputs = network->sizeOutput;
+
+    // Read line one by one
+    char ch;
+    
 }
 
 void network_test(Network *network, void *input, void *output)
 {
+    printf("Testing network...\n");
+
     // TODO : implement
 }
 
 void network_save(Network *network, char *filename)
 {
+    printf("Saving network...\n");
+
     network_save_weights(network, filename);
 }
 
@@ -78,7 +100,9 @@ Network *network_load(char *filename)
 }
 
 void network_free(Network *network)
-{
+{   
+    printf("Freeing network...\n");
+
     for (size_t i = 0; i < network->nbLayers; i++)
     {
         Layer *layer = &(network->layers[i]);

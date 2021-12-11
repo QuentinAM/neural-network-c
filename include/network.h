@@ -4,6 +4,7 @@
 #include "Utils/act_functions.h"
 #include "Utils/act_functions_prime.h"
 #include "Utils/save_load.h"
+#include "network_utils.h"
 #include "layer.h"
 
 /**
@@ -64,7 +65,7 @@ Network *network_create(Network_args *args)
  */
 // TODO : Change the void * properly
 void network_train(Network *network, size_t n_epochs, double n_learning_rate,
-                   void *input, void *output);
+                   char *data);
 
 /**
  * @brief Predict the output of a network

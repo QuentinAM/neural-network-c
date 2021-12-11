@@ -42,6 +42,15 @@ void network_gradient_descent(Network *network, double learningRate);
 void network_print_weights(Network *network);
 
 /**
+ * @brief 
+ * 
+ * @param file 
+ * @param input 
+ * @param output 
+ */
+void network_create_data(FILE *file, double *input, double *output);
+
+/**
  * @brief Calculate the error rate of the network
  *
  * @param network The network to calculate the error rate of

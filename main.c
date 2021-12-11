@@ -24,7 +24,7 @@ int main(void)
     double n_learning_rate = 0.1;
 
     // Train the network on XOR
-    network_train(network, n_epochs, n_learning_rate, INPUTS, OUTPUTS);
+    network_train(network, n_epochs, n_learning_rate, "xor_data.txt");
 
     // Test the network on XOR
     network_test(network, TEST_INPUTS, TEST_INPUTS);

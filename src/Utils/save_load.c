@@ -82,14 +82,14 @@ void network_save_weights(Network *network, char *path)
     fclose(file);
 }
 
-void network_load_weights(Network *network, char *path, int verbose, int gui)
+void network_load_weights(Network *network, char *path)
 {
     if (access(path, F_OK) != 0)
     {
         errx(EXIT_FAILURE, "Weights file doesn't exist");
     }
 
-    printf("--> 💾 Initing weights from %s\n", path);
+    printf("Loading weights from %s\n", path);
 
     // Open file
     FILE *file;

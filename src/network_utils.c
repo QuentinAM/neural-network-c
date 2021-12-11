@@ -1,4 +1,4 @@
-#include "network_steps.h"
+#include "network_utils.h"
 
 void network_front_propagation(Network *network, int input[])
 {
@@ -108,7 +108,17 @@ void network_gradient_descent(Network *network, double learningRate)
     }
 }
 
-// Apply softmax with cross entropy
+void network_create_data(FILE *file, double *input, double *output)
+{
+    char ch;
+    while ((ch = getc(file)) != EOF)
+    {
+        if (ch == '#')
+        {
+            ch = getc(file);
+        }
+    }
+}
 
 void network_print_weights(Network *network)
 {
