@@ -8,7 +8,7 @@ LDLIBS =  -rdynamic
 BUILD := build
 SOURCE_DIR := src
 
-SRC = $(shell find $(SOURCE_DIR) -name "*.c" ! -name "main.c")
+SRC = $(shell find $(SOURCE_DIR) -name "*.c") #! -name "main.c")
 OBJ = $(SRC:%.c=$(BUILD)/%.o)
 
 all: init main clear

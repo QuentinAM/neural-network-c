@@ -1,10 +1,6 @@
 #ifndef ACT_FUNCTION_PRIMES_H
 #define ACT_FUNCTION_PRIMES_H
 
-#include "network.h"
-
-typedef double (*n_act_f_prime)(Network *network, double *expected) n_act_f_prime;
-
 /**
  * @brief The ActFunctionPrimes class
  *
@@ -19,11 +15,13 @@ enum ActFunctionPrime
     SOFTMAX_PRIME,
 };
 
+#include "network.h"
+
 /**
  * @brief Get the prime function of the activation function
  *
  */
-n_act_f_prime get_act_function_prime(enum ActFunctionPrime act_function_prime);
+double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime)) (Network *network, double *expected);
 
 /**
  * @brief Perform sigmoid prime operation on the given layer.

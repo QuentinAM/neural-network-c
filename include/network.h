@@ -1,28 +1,10 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
+#include <stdlib.h>
 #include <stdbool.h>
 
-#include "Utils/act_functions.h"
-#include "Utils/act_functions_prime.h"
-#include "Utils/save_load.h"
-#include "Utils/matrix.h"
-#include "network_utils.h"
 #include "layer.h"
-
-/**
- * @brief The Network class
- *
- */
-typedef struct Network_args
-{
-    size_t n_inputs;
-    size_t n_outputs;
-    size_t n_hidden_layers;
-    size_t n_neurons_per_hidden_layer;
-    ActFunction act_functions;
-    ActFunctionPrime act_f_prime;
-};
 
 /**
  * @brief The Network class
@@ -34,10 +16,31 @@ typedef struct Network
     size_t sizeInput;
     size_t sizeHidden;
     size_t sizeOutput;
-    n_act_f act_f;
-    n_act_f_prime act_f_prime;
+    void (*act_f)(struct Network *network);
+    double (*act_f_prime)(struct Network *network, double *expected);
     Layer *layers;
 } Network;
+
+#include "Utils/act_functions.h"
+#include "Utils/act_functions_prime.h"
+
+#include "Utils/save_load.h"
+#include "Utils/matrix.h"
+#include "network_utils.h"
+
+/**
+ * @brief The Network class
+ *
+ */
+typedef struct Network_args
+{
+    size_t n_inputs;
+    size_t n_outputs;
+    size_t n_hidden_layers;
+    size_t n_neurons_per_hidden_layer;
+    enum ActFunction n_act_f;
+    enum ActFunctionPrime n_act_f_prime;
+}Network_args;
 
 /**
  * @brief Create a new network
@@ -48,14 +51,14 @@ typedef struct Network
  * @param sizeOutput size of the output layer
  * @return Network
  */
-Network *network_create(Network_args *args)
+Network *network_create(Network_args *args);
 
-    /**
-     * @brief Initialize a network
-     *
-     * @param network the network to be initialized
-     */
-    void network_init(Network *network);
+/**
+ * @brief Initialize a network
+ *
+ * @param network the network to be initialized
+ */
+void network_init(Network *network);
 
 /**
  * @brief Train a network

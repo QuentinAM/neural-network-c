@@ -2,6 +2,7 @@
 #define NEURON_H
 
 #include <stdlib.h>
+#include <err.h>
 
 typedef struct Neuron
 {

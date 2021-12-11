@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <stdlib.h>
+#include <err.h>
 
 /**
  * @brief 

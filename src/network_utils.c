@@ -51,12 +51,17 @@ size_t get_nb_data(char *file_name)
         errx(EXIT_FAILURE, "Error: file %s not found\n", file_name);
     }
 
-    char *line = NULL;
-    size_t len = 0;
-    size_t nb_data = 0;
+    char ch;
+    size_t nb_data = 1;
 
     // Calculate the number of data
-    for (; fgets(line, &len, file) != NULL; nb_data++);
+    while ((ch = fgetc(file)) != EOF)
+    {
+        if (ch == '\n')
+        {
+            nb_data++;
+        }
+    }
 
     fclose(file);
     return nb_data;
@@ -80,11 +85,17 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
     bool is_input = true;
     while ((ch = getc(file)) != EOF)
     {
+        printf("%c\n", ch);
         if (ch == ' ')
             continue;
 
         if (ch == '\n')
         {
+            printf("Data_index : %zu, input_index : %zu\n", data_index, input_index);
+            input[data_index][input_index] = atof(temp_str);
+            input_index = 0;
+            output_index = 0;
+            is_input = true;
             data_index++;
         }
 
@@ -96,6 +107,7 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
                 errx(EXIT_FAILURE, "Data error : have a / in the expected section");
             }
 
+            printf("Data_index : %zu, output_index : %zu\n", data_index, output_index);
             expected[data_index][output_index] = atof(temp_str);
             output_index++;
 
@@ -106,9 +118,9 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
         {
             if (is_input)
             {
+                printf("Data_index : %zu, output_index : %zu\n", data_index, output_index);
                 expected[data_index][output_index] = atof(temp_str);
                 output_index++;
-
 
                 // Reset string
                 memset(temp_str, 0, 100);
@@ -117,7 +129,7 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
             }
             else
             {
-                
+                printf("Data_index : %zu, input_index : %zu\n", data_index, input_index);
                 input[data_index][input_index] = atof(temp_str);
                 input_index++;
 
@@ -133,10 +145,15 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
     }
 
     // Don't forget to add the last output
-    output[data_index][output_index] = atof(temp_str);
+    input[data_index][input_index] = atof(temp_str);
+    input_index++;
 
+    printf("Input_index : %zu, n_inputs : %zu\n", input_index, n_inputs);
+    printf("Output_index : %zu, n_outputs : %zu\n", output_index, n_outputs);
     if (input_index != n_inputs || output_index != n_outputs)
     {
+        matrix_free(input, data_index);
+        matrix_free(expected, data_index);
         errx(EXIT_FAILURE, "Data error : the specified size of input and output is different than the data provided\n");
     }
     fclose(file);

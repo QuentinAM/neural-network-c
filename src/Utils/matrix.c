@@ -2,7 +2,7 @@
 
 double **matrix_alloc(size_t n_rows, size_t n_cols)
 {
-    double **matrix = calloc(n_rows, sizeof(double *));
+    double **matrix = calloc(n_rows + 1, sizeof(double *));
     if (matrix == NULL)
     {
         errx(EXIT_FAILURE, "matrix_alloc: calloc failed");
@@ -10,7 +10,7 @@ double **matrix_alloc(size_t n_rows, size_t n_cols)
 
     for (size_t i = 0; i < n_rows; i++)
     {
-        matrix[i] = calloc(n_cols, sizeof(double));
+        matrix[i] = calloc(n_cols + 1, sizeof(double));
         if (matrix[i] == NULL)
         {
             // Free already allocated matrix

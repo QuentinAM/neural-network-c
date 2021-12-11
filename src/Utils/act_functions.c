@@ -1,6 +1,6 @@
 #include "Utils/act_functions.h"
 
-n_act_f get_activation_f(ActFunction f)
+void (*get_activation_f(enum ActFunction f)) (Network *network)
 {
     switch (f)
     {
@@ -28,7 +28,7 @@ void sigmoid(Network *network)
     for (size_t i = 1; i < nbLayers; i++)
     {
         Layer prevLayer = network->layers[i - 1];
-        layer = &(network->layers[i]);
+        Layer *layer = &(network->layers[i]);
         nbNeurons = layer->nbNeurons;
 
         // For each neuron of the actual layer
@@ -78,7 +78,7 @@ void softmax(Network *network)
 void linear(Network *network)
 {}
 
-void tanh(Network *network)
+void tanh_(Network *network)
 {}
 
 void relu(Network *network)

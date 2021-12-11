@@ -1,4 +1,6 @@
 #include "network.h"
+#include "Utils/act_functions.h"
+#include "Utils/act_functions_prime.h"
 
 Network *network_create(Network_args *args)
 {
@@ -7,7 +9,7 @@ Network *network_create(Network_args *args)
     Network *network = malloc(sizeof(Network));
     network->nbLayers = args->n_hidden_layers + 2;
     network->sizeInput = args->n_inputs;
-    network->sizeHidden = args->n_hidden_neurons;
+    network->sizeHidden = args->n_neurons_per_hidden_layer;
     network->sizeOutput = args->n_outputs;
 
     // Allocate memory for all layers
@@ -18,22 +20,22 @@ Network *network_create(Network_args *args)
     }
 
     // Create the input layer
-    network->layers[0] = newLayer(sizeInput, 0);
+    network->layers[0] = newLayer(network->sizeInput, 0);
 
     // Create all hidden layer with the nbNeurons of the previous one
     for (size_t i = 1; i < network->nbLayers - 1; i++)
     {
-        network.layers[i] =
-            newLayer(sizeHidden, network->layers[i - 1].nbNeurons);
+        network->layers[i] =
+            newLayer(network->sizeHidden, network->layers[i - 1].nbNeurons);
     }
 
     // Create the ouput layer
     network->layers[network->nbLayers - 1] =
-        newLayer(sizeOutput, network->layers[network->nbLayers - 2].nbNeurons);
+        newLayer(network->sizeOutput, network->layers[network->nbLayers - 2].nbNeurons);
 
     // Get activation function
-    network->act_f = get_activation_f(args->act_functions);
-    network->act_f_prime = get_activation_f_prime(args->act_f_prime);
+    network->act_f = get_activation_f(args->n_act_f);
+    network->act_f_prime = get_activation_f_prime(args->n_act_f_prime);
 
     return network;
 }
@@ -63,6 +65,8 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
 
     size_t nb_data = get_nb_data(data);
 
+    printf("nb_data: %zu\n", nb_data);
+
     double **input = matrix_alloc(nb_data, network->sizeInput);
     double **output = matrix_alloc(nb_data, network->sizeOutput);
 
@@ -87,8 +91,8 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
     }
 
     // Free memory
-    matrix_free(input, network->sizeInput);
-    matrix_free(output, network->sizeOutput);
+    matrix_free(input, nb_data);
+    matrix_free(output, nb_data);
 }
 
 void network_test(Network *network, char *data)
@@ -123,7 +127,7 @@ void network_test(Network *network, char *data)
     }
 
     // Free memory
-    matrix_free(input, network->sizeInput);
+    matrix_free(input, nb_data);
 }
 
 void network_save(Network *network, char *filename)
