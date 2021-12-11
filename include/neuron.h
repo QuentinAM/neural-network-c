@@ -1,8 +1,8 @@
 #ifndef NEURON_H
 #define NEURON_H
 
-#include <stdlib.h>
 #include <err.h>
+#include <stdlib.h>
 
 typedef struct Neuron
 {

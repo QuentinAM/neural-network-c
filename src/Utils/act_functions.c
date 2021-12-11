@@ -1,6 +1,6 @@
 #include "Utils/act_functions.h"
 
-void (*get_activation_f(enum ActFunction f)) (Network *network)
+void (*get_activation_f(enum ActFunction f))(Network *network)
 {
     switch (f)
     {

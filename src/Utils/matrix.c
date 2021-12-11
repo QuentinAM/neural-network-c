@@ -19,7 +19,7 @@ double **matrix_alloc(size_t n_rows, size_t n_cols)
                 free(matrix[j]);
             }
             free(matrix);
-           
+
             errx(EXIT_FAILURE, "matrix_alloc: calloc failed");
         }
     }

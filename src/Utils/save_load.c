@@ -133,14 +133,12 @@ void network_load_weights(Network *network, char *path)
         errx(EXIT_FAILURE, "File too short");
     }
 
-    Network_args args = {
-        .n_inputs = network->sizeInput,
-        .n_outputs = network->sizeOutput,
-        .n_hidden_layers = nbHidden,
-        .n_neurons_per_hidden_layer = nbNodePerHidden,
-        .n_act_f = SIGMOID,
-        .n_act_f_prime = SIGMOID_PRIME
-    };
+    Network_args args = { .n_inputs = network->sizeInput,
+                          .n_outputs = network->sizeOutput,
+                          .n_hidden_layers = nbHidden,
+                          .n_neurons_per_hidden_layer = nbNodePerHidden,
+                          .n_act_f = SIGMOID,
+                          .n_act_f_prime = SIGMOID_PRIME };
 
     network = network_create(&args);
 

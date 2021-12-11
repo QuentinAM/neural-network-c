@@ -21,7 +21,8 @@ enum ActFunctionPrime
  * @brief Get the prime function of the activation function
  *
  */
-double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime)) (Network *network, double *expected);
+double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
+    Network *network, double *expected);
 
 /**
  * @brief Perform sigmoid prime operation on the given layer.

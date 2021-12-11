@@ -1,6 +1,7 @@
 #include "Utils/act_functions_prime.h"
 
-double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime)) (Network *network, double *expected)
+double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
+    Network *network, double *expected)
 {
     switch (act_function_prime)
     {

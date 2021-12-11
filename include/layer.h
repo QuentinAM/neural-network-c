@@ -1,8 +1,9 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include "neuron.h"
 #include <err.h>
+
+#include "neuron.h"
 
 typedef struct Layer
 {

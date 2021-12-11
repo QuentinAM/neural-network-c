@@ -1,8 +1,8 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "layer.h"
 
@@ -23,9 +23,8 @@ typedef struct Network
 
 #include "Utils/act_functions.h"
 #include "Utils/act_functions_prime.h"
-
-#include "Utils/save_load.h"
 #include "Utils/matrix.h"
+#include "Utils/save_load.h"
 #include "network_utils.h"
 
 /**
@@ -40,7 +39,7 @@ typedef struct Network_args
     size_t n_neurons_per_hidden_layer;
     enum ActFunction n_act_f;
     enum ActFunctionPrime n_act_f_prime;
-}Network_args;
+} Network_args;
 
 /**
  * @brief Create a new network
@@ -69,7 +68,8 @@ void network_init(Network *network);
  * @param input input data
  * @param output output data
  */
-void network_train(Network *network, size_t n_epochs, double n_learning_rate, char *data);
+void network_train(Network *network, size_t n_epochs, double n_learning_rate,
+                   char *data);
 
 /**
  * @brief Predict the output of a network

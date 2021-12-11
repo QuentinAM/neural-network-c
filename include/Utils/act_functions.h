@@ -20,7 +20,7 @@ enum ActFunction
  * @brief Get the activation function
  *
  */
-void (*get_activation_f(enum ActFunction f)) (Network *network);
+void (*get_activation_f(enum ActFunction f))(Network *network);
 
 /**
  * @brief Performs the sigmoid function on the given layer.
@@ -37,9 +37,9 @@ void sigmoid(Network *network);
 void softmax_layer(Layer *layer);
 
 /**
- * @brief 
- * 
- * @param network 
+ * @brief
+ *
+ * @param network
  */
 void softmax(Network *network);
 

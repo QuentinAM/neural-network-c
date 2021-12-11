@@ -67,7 +67,8 @@ size_t get_nb_data(char *file_name)
     return nb_data;
 }
 
-void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, double **input, double **expected)
+void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs,
+                         double **input, double **expected)
 {
     // Open data file
     FILE *file = fopen(data_path, "r");
@@ -85,13 +86,14 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
     bool is_input = true;
     while ((ch = getc(file)) != EOF)
     {
-        printf("%c\n", ch);
+        // printf("%c\n", ch);
         if (ch == ' ')
             continue;
 
         if (ch == '\n')
         {
-            printf("Data_index : %zu, input_index : %zu\n", data_index, input_index);
+            // printf("Data_index : %zu, input_index : %zu\n", data_index,
+            // input_index);
             input[data_index][input_index] = atof(temp_str);
             input_index = 0;
             output_index = 0;
@@ -104,10 +106,12 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
             // Check for error
             if (!is_input)
             {
-                errx(EXIT_FAILURE, "Data error : have a / in the expected section");
+                errx(EXIT_FAILURE,
+                     "Data error : have a / in the expected section");
             }
 
-            printf("Data_index : %zu, output_index : %zu\n", data_index, output_index);
+            // printf("Data_index : %zu, output_index : %zu\n", data_index,
+            // output_index);
             expected[data_index][output_index] = atof(temp_str);
             output_index++;
 
@@ -118,7 +122,8 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
         {
             if (is_input)
             {
-                printf("Data_index : %zu, output_index : %zu\n", data_index, output_index);
+                // printf("Data_index : %zu, output_index : %zu\n", data_index,
+                // output_index);
                 expected[data_index][output_index] = atof(temp_str);
                 output_index++;
 
@@ -129,7 +134,8 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
             }
             else
             {
-                printf("Data_index : %zu, input_index : %zu\n", data_index, input_index);
+                // printf("Data_index : %zu, input_index : %zu\n", data_index,
+                // input_index);
                 input[data_index][input_index] = atof(temp_str);
                 input_index++;
 
@@ -148,14 +154,62 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs, dou
     input[data_index][input_index] = atof(temp_str);
     input_index++;
 
-    printf("Input_index : %zu, n_inputs : %zu\n", input_index, n_inputs);
-    printf("Output_index : %zu, n_outputs : %zu\n", output_index, n_outputs);
+    // printf("Input_index : %zu, n_inputs : %zu\n", input_index, n_inputs);
+    // printf("Output_index : %zu, n_outputs : %zu\n", output_index, n_outputs);
     if (input_index != n_inputs || output_index != n_outputs)
     {
         matrix_free(input, data_index);
         matrix_free(expected, data_index);
-        errx(EXIT_FAILURE, "Data error : the specified size of input and output is different than the data provided\n");
+        errx(EXIT_FAILURE,
+             "Data error : the specified size of input and output is different "
+             "than the data provided\n");
     }
+    fclose(file);
+}
+
+void network_create_test_data(char *data_path, double **input)
+{
+    // Open data file
+    FILE *file = fopen(data_path, "r");
+    if (file == NULL)
+    {
+        errx(EXIT_FAILURE, "Error while opening data file");
+    }
+
+    char ch;
+    char tempStr[100];
+    memset(tempStr, 0, 100);
+    size_t data_index = 0;
+    size_t index = 0;
+
+    while ((ch = getc(file)) != EOF)
+    {
+        if (ch == ' ')
+            continue;
+
+        else if (ch == '\n')
+        {
+            // printf("Data_index : %zu, index : %zu, str : %s\n", data_index,
+            // index, tempStr);
+            input[data_index][index] = atof(tempStr);
+            memset(tempStr, 0, 100);
+            index = 0;
+            data_index++;
+        }
+        else if (ch == '|')
+        {
+            // printf("Data_index : %zu, index : %zu, str : %s\n", data_index,
+            // index, tempStr);
+            input[data_index][index] = atof(tempStr);
+            index++;
+            memset(tempStr, 0, 100);
+        }
+        else
+        {
+            strncat(tempStr, &ch, 1);
+        }
+    }
+    input[data_index][index] = atof(tempStr);
     fclose(file);
 }
 
