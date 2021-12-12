@@ -5,7 +5,7 @@
 
 Network *network_create(Network_args *args)
 {
-    printf("Creating network...\n");
+    printf("🔨 Creating network...\n");
 
     Network *network = malloc(sizeof(Network));
     network->nbLayers = args->n_hidden_layers + 2;
@@ -62,7 +62,7 @@ void network_init(Network *network)
 void network_train(Network *network, size_t n_epochs, double n_learning_rate,
                    char *data)
 {
-    printf("Training network...\n");
+    printf("📈 Training network...\n");
 
     size_t nb_data = get_nb_data(data);
 
@@ -75,7 +75,11 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
     network_create_data(data, network->sizeInput, network->sizeOutput, input,
                         output);
 
+    // matrix_print(input, nb_data, network->sizeInput);
+    // matrix_print(output, nb_data, network->sizeOutput);
+
     // Train the network
+    double error = 0;
     for (size_t epoch = 0; epoch < n_epochs; epoch++)
     {
         // For each data
@@ -85,12 +89,14 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
             network_front_propagation(network, input[data]);
 
             // Back propagation
-            network_back_propagation(network, output[data]);
+            error += network_back_propagation(network, output[data]);
 
             // Update weights
             network_gradient_descent(network, n_learning_rate);
         }
     }
+
+    printf("❗ Error rate: %f\n", error / (nb_data * n_epochs));
 
     // Free memory
     matrix_free(input, nb_data);
@@ -99,19 +105,21 @@ void network_train(Network *network, size_t n_epochs, double n_learning_rate,
 
 void network_test(Network *network, char *data)
 {
-    printf("Testing network...\n");
+    printf("📊 Testing network...\n");
 
     size_t nb_data = get_nb_data(data);
 
     // Allocate memory for test data
     double **input = matrix_alloc(nb_data, network->sizeInput);
 
+    // Load data
     network_create_test_data(data, input);
+
+    // matrix_print(input, nb_data, network->sizeInput);
 
     for (size_t data = 0; data < nb_data; data++)
     {
-        // printf("Data %zu\n", data);
-        printf("Input : ");
+        printf("--> Input : ");
         for (size_t i = 0; i < network->sizeInput; i++)
         {
             printf("%f ", input[data][i]);
@@ -122,7 +130,7 @@ void network_test(Network *network, char *data)
         network_front_propagation(network, input[data]);
 
         // Print output
-        printf("Output : ");
+        printf("<-- Output : ");
         for (size_t i = 0; i < network->sizeOutput; i++)
         {
             printf("%f ",
@@ -137,7 +145,7 @@ void network_test(Network *network, char *data)
 
 void network_save(Network *network, char *filename)
 {
-    printf("Saving network...\n");
+    printf("💾 Saving network...\n");
 
     network_save_weights(network, filename);
 }
@@ -151,7 +159,7 @@ Network *network_load(char *filename)
 
 void network_free(Network *network)
 {
-    printf("Freeing network...\n");
+    printf("🎈 Freeing network...\n");
 
     for (size_t i = 0; i < network->nbLayers; i++)
     {
@@ -160,4 +168,6 @@ void network_free(Network *network)
     }
     free(network->layers);
     free(network);
+
+    printf("✅ Done\n");
 }

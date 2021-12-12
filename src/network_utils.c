@@ -99,6 +99,7 @@ void network_create_data(char *data_path, size_t n_inputs, size_t n_outputs,
             output_index = 0;
             is_input = true;
             data_index++;
+            memset(temp_str, 0, 100);
         }
 
         if (ch == '/')

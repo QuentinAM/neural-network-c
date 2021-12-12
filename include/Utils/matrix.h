@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <err.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -20,5 +21,14 @@ double **matrix_alloc(size_t n_rows, size_t n_cols);
  * @param n_rows The number of rows in the matrix
  */
 void matrix_free(double **matrix, size_t n_rows);
+
+/**
+ * @brief Print a matrix
+ *
+ * @param matrix The matrix to print
+ * @param n_rows The number of rows in the matrix
+ * @param n_cols The number of columns in the matrix
+ */
+void matrix_print(double **matrix, size_t n_rows, size_t n_cols);
 
 #endif
