@@ -15,55 +15,56 @@ enum ActFunctionPrime
     SOFTMAX_PRIME,
 };
 
+#include "Utils/vector.h"
 #include "network.h"
 
 /**
  * @brief Get the prime function of the activation function
  *
  */
-double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
-    Network *network, double *expected);
+void (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
+    Network *network);
 
 /**
  * @brief Perform sigmoid prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double sigmoid_prime(Network *network, double *expected);
+void sigmoid_prime(Network *network);
 
 /**
  * @brief Perform tanh prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double tanh_prime(Network *network, double *expected);
+void tanh_prime(Network *network);
 
 /**
  * @brief Perform relu prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double relu_prime(Network *network, double *expected);
+void relu_prime(Network *network);
 
 /**
  * @brief Perform leaky relu prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double leaky_relu_prime(Network *network, double *expected);
+void leaky_relu_prime(Network *network);
 
 /**
  * @brief Perform softmax prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double softmax_prime(Network *network, double *expected);
+void softmax_prime(Network *network);
 
 /**
  * @brief Perform linear prime operation on the given layer.
  *
  * @param layer The layer to perform the operation on.
  */
-double linear_prime(Network *network, double *expected);
+void linear_prime(Network *network);
 
 #endif

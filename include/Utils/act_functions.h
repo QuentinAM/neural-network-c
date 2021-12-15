@@ -14,13 +14,14 @@ enum ActFunction
     SOFTMAX
 };
 
+#include "Utils/vector.h"
 #include "network.h"
 
 /**
  * @brief Get the activation function
  *
  */
-void (*get_activation_f(enum ActFunction f))(Network *network);
+void (*get_activation_f(enum ActFunction act_function))(Network *network);
 
 /**
  * @brief Performs the sigmoid function on the given layer.

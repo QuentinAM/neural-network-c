@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <time.h> // To call srand(time(NULL));
 
+#include "Utils/vector.h"
 #include "network.h"
 
 /**

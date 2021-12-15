@@ -1,7 +1,7 @@
 #include "Utils/act_functions_prime.h"
 
-double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
-    Network *network, double *expected)
+void (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
+    Network *network)
 {
     switch (act_function_prime)
     {
@@ -22,39 +22,26 @@ double (*get_activation_f_prime(enum ActFunctionPrime act_function_prime))(
     }
 }
 
-double sigmoid_prime(Network *network, double *expected)
+void sigmoid_prime(Network *network)
 {
-    double errorRate = 0.0;
     double errorTemp = 0.0;
 
-    unsigned int nbLayers = network->nbLayers;
-
-    // Output layer
-    Layer *outputLayer = &(network->layers[nbLayers - 1]);
-
-    // NbNeurons of lastlayer and expected are equals
-    for (unsigned int i = 0; i < outputLayer->nbNeurons; i++)
-    {
-        Neuron *neuron = &(outputLayer->neurons[i]);
-        errorTemp = expected[i] - neuron->value;
-        neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
-        errorRate += (errorTemp * errorTemp);
-    }
+    size_t nbLayers = network->nbLayers;
 
     // For all layer except the input
-    for (unsigned int i = nbLayers - 1; i >= 2; i--)
+    for (size_t i = nbLayers - 1; i >= 2; i--)
     {
         Layer layer = network->layers[i];
         Layer *previousLayer =
             &(network->layers[i - 1]); // Modify weights of this layer
         // For each neurons
-        for (unsigned int j = 0; j < previousLayer->nbNeurons; j++)
+        for (size_t j = 0; j < previousLayer->nbNeurons; j++)
         {
             errorTemp = 0.0;
             Neuron *neuron = &(previousLayer->neurons[j]);
             // Calculate error rate based on all neuron in the next layer and
             // all weights of the actual neuron
-            for (unsigned int k = 0; k < layer.nbNeurons; k++)
+            for (size_t k = 0; k < layer.nbNeurons; k++)
             {
                 errorTemp +=
                     layer.neurons[k].delta * layer.neurons[k].weights[j];
@@ -62,20 +49,19 @@ double sigmoid_prime(Network *network, double *expected)
             neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
         }
     }
-    return errorRate;
 }
 
-double tanh_prime(Network *network, double *expected)
+void tanh_prime(Network *network)
 {}
 
-double relu_prime(Network *network, double *expected)
+void relu_prime(Network *network)
 {}
 
-double leaky_relu_prime(Network *network, double *expected)
+void leaky_relu_prime(Network *network)
 {}
 
-double softmax_prime(Network *network, double *expected)
+void softmax_prime(Network *network)
 {}
 
-double linear_prime(Network *network, double *expected)
+void linear_prime(Network *network)
 {}

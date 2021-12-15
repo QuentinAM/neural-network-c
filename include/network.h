@@ -17,7 +17,7 @@ typedef struct Network
     size_t sizeHidden;
     size_t sizeOutput;
     void (*act_f)(struct Network *network);
-    double (*act_f_prime)(struct Network *network, double *expected);
+    void (*act_f_prime)(struct Network *network);
     Layer *layers;
 } Network;
 

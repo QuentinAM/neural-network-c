@@ -1,8 +1,8 @@
 #include "Utils/act_functions.h"
 
-void (*get_activation_f(enum ActFunction f))(Network *network)
+void (*get_activation_f(enum ActFunction act_function))(Network *network)
 {
-    switch (f)
+    switch (act_function)
     {
     case LINEAR:
         return linear;
@@ -21,15 +21,12 @@ void (*get_activation_f(enum ActFunction f))(Network *network)
 
 void sigmoid(Network *network)
 {
-    // Hiddens layer
-    size_t nbLayers = network->nbLayers;
-    size_t nbNeurons;
     // For each layer
-    for (size_t i = 1; i < nbLayers; i++)
+    for (size_t i = 1; i < network->nbLayers; i++)
     {
         Layer prevLayer = network->layers[i - 1];
         Layer *layer = &(network->layers[i]);
-        nbNeurons = layer->nbNeurons;
+        size_t nbNeurons = layer->nbNeurons;
 
         // For each neuron of the actual layer
         for (size_t j = 0; j < nbNeurons; j++)

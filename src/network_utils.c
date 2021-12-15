@@ -14,7 +14,24 @@ void network_front_propagation(Network *network, double *input)
 
 double network_back_propagation(Network *network, double *expected)
 {
-    double errorRate = network->act_f_prime(network, expected);
+    double errorRate = 0.0;
+    double errorTemp = 0.0;
+
+    size_t nbLayers = network->nbLayers;
+
+    // Output layer
+    Layer *outputLayer = &(network->layers[nbLayers - 1]);
+
+    // NbNeurons of lastlayer and expected are equals
+    for (size_t i = 0; i < outputLayer->nbNeurons; i++)
+    {
+        Neuron *neuron = &(outputLayer->neurons[i]);
+        errorTemp = expected[i] - neuron->value;
+        neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
+        errorRate += (errorTemp * errorTemp);
+    }
+
+    network->act_f_prime(network);
     return errorRate;
 }
 
