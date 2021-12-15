@@ -11,6 +11,9 @@ SOURCE_DIR := src
 SRC = $(shell find $(SOURCE_DIR) -name "*.c") #! -name "main.c")
 OBJ = $(SRC:%.c=$(BUILD)/%.o)
 
+SRC_TESTS = $(shell find Tests -name "*.c")
+OBJ_TESTS = $(SRC_TESTS:%.c=$(BUILD)/%.o)
+
 all: init main clear
 
 # Create build directory
@@ -25,6 +28,9 @@ main: $(OBJ)
 # Clear build directory
 clear:
 	find . -type d -empty -delete
+
+tests: $(OBJ_TESTS)
+	gcc -o $@ $(CFLAGS) $^ $(LDLFLAGS) $(LDLIBS)
 
 # Redirect output to build directory
 $(BUILD)/%.o : %.c
