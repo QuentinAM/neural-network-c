@@ -36,12 +36,15 @@ void matrix_free(double **matrix, size_t n_rows)
 
 void matrix_print(double **matrix, size_t n_rows, size_t n_cols)
 {
+    printf("[\n");
     for (size_t i = 0; i < n_rows; i++)
     {
+        printf("\t[");
         for (size_t j = 0; j < n_cols; j++)
         {
             printf("%f ", matrix[i][j]);
         }
-        printf("\n");
+        printf("]\n");
     }
+    printf("]\n");
 }

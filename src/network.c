@@ -136,7 +136,7 @@ void network_test(Network *network, char *data)
             printf("%f ",
                    network->layers[network->nbLayers - 1].neurons[i].value);
         }
-        printf("\n");
+        printf("\n\n");
     }
 
     // Free memory

@@ -18,8 +18,8 @@ int main(void)
     // Create the network
     Network *network = network_create(&args);
 
-    size_t n_epochs = 10000;
-    double n_learning_rate = 0.01;
+    size_t n_epochs = 100;
+    double n_learning_rate = 0.1;
 
     // Train the network on XOR
     network_train(network, n_epochs, n_learning_rate, "xor_data.txt");

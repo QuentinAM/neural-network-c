@@ -4,7 +4,7 @@ void network_front_propagation(Network *network, double *input)
 {
     // First layer
     Layer *layer = &(network->layers[0]);
-    for (unsigned int i = 0; i < layer->nbNeurons; i++)
+    for (size_t i = 0; i < layer->nbNeurons; i++)
     {
         layer->neurons[i].value = input[i];
     }
@@ -17,12 +17,10 @@ double network_back_propagation(Network *network, double *expected)
     double errorRate = 0.0;
     double errorTemp = 0.0;
 
-    size_t nbLayers = network->nbLayers;
-
     // Output layer
-    Layer *outputLayer = &(network->layers[nbLayers - 1]);
+    Layer *outputLayer = &(network->layers[network->nbLayers - 1]);
 
-    // NbNeurons of lastlayer and expected are equals
+    // Calculate error rate and delta for output layer
     for (size_t i = 0; i < outputLayer->nbNeurons; i++)
     {
         Neuron *neuron = &(outputLayer->neurons[i]);
@@ -30,24 +28,28 @@ double network_back_propagation(Network *network, double *expected)
         neuron->delta = errorTemp * (neuron->value * (1 - neuron->value));
         errorRate += (errorTemp * errorTemp);
     }
+    // Normalize error rate
+    errorRate /= outputLayer->nbNeurons;
 
+    // Apply activation function prime
     network->act_f_prime(network);
+
     return errorRate;
 }
 
 void network_gradient_descent(Network *network, double learningRate)
 {
     // Gradient descent
-    for (unsigned int i = network->nbLayers - 1; i >= 1; i--)
+    for (size_t i = network->nbLayers - 1; i >= 1; i--)
     {
         Layer *layer = &(network->layers[i]);
         Layer *previousLayer = &(network->layers[i - 1]);
         // For each neurons in the layer
-        for (unsigned int j = 0; j < layer->nbNeurons; j++)
+        for (size_t j = 0; j < layer->nbNeurons; j++)
         {
             // For each neurons on the layer
             Neuron *neuron = &(layer->neurons[j]);
-            for (unsigned int k = 0; k < previousLayer->nbNeurons; k++)
+            for (size_t k = 0; k < previousLayer->nbNeurons; k++)
             {
                 // For each weights on the neuron of the previous layer
                 neuron->weights[k] += neuron->delta
@@ -58,6 +60,11 @@ void network_gradient_descent(Network *network, double learningRate)
             }
         }
     }
+}
+
+double *network_get_output(Network *network, double *input)
+{
+    // TO FIX
 }
 
 size_t get_nb_data(char *file_name)

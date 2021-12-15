@@ -36,6 +36,15 @@ double network_back_propagation(Network *network, double *expected);
 void network_gradient_descent(Network *network, double learningRate);
 
 /**
+ * @brief Get the output of the network
+ *
+ * @param network The network to get the output of
+ * @param input The input to the network
+ * @return double*
+ */
+double *network_get_output(Network *network, double *input);
+
+/**
  * @brief Get the nb data object
  *
  * @param file_name
