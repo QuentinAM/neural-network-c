@@ -7,7 +7,7 @@ Working on neural network libs in C
 - You'll be able to use the same code for different types of neural networks
 - You'll be able to modify the code to fit your needs
 
-## Usage (expectation)
+## [Usage](https://github.com/QuentinAM/neural-network-c/blob/main/src/main.c) (expectation)
 
 ```c
 #include "network.h"
