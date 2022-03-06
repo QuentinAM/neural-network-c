@@ -1,13 +1,13 @@
-# Neural network
+# 💻 Neural network
 
 Working on neural network libs in C
 
-## Advantages
+## 📈 Advantages
 
 - You'll be able to use the same code for different types of neural networks
 - You'll be able to modify the code to fit your needs
 
-## [Usage](https://github.com/QuentinAM/neural-network-c/blob/main/src/main.c) (expectation)
+## ⚙️ [Usage](https://github.com/QuentinAM/neural-network-c/blob/main/src/main.c) (expectation)
 
 ```c
 #include "network.h"
@@ -47,10 +47,10 @@ int main(void)
 }
 ```
 
-## Documentation
+## 📖 Documentation
 The code will be fully documented in the headers (.h) file in the include folder.
 
-# LICENSE
+# ⚖️ LICENSE
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
